@@ -21,8 +21,53 @@
         )
       }
     }(window.location))
+    
+    // Mobile video autoplay handler
+    (function() {
+      var hasUserInteracted = false;
+      
+      function forcePlayVideos() {
+        var videos = document.querySelectorAll('video');
+        videos.forEach(function(video, index) {
+          if (video && !video.ended) {
+            video.muted = true;
+            video.playsInline = true;
+            video.setAttribute('playsinline', 'true');
+            video.setAttribute('webkit-playsinline', 'true');
+            
+            var playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.then(function() {
+                console.log('Video ' + (index + 1) + ' playing');
+              }).catch(function(error) {
+                console.log('Video ' + (index + 1) + ' autoplay blocked:', error);
+              });
+            }
+          }
+        });
+      }
+      
+      function markInteraction() {
+        if (!hasUserInteracted) {
+          hasUserInteracted = true;
+          forcePlayVideos();
+          document.removeEventListener('touchstart', markInteraction);
+          document.removeEventListener('click', markInteraction);
+        }
+      }
+      
+      document.addEventListener('touchstart', markInteraction, { passive: true });
+      document.addEventListener('click', markInteraction, { passive: true });
+      
+      // Try initial play when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', forcePlayVideos);
+      } else {
+        forcePlayVideos();
+      }
+    })();
   </script>
-  <script type="module" crossorigin src="/lmintelligencev2.github.io/assets/index-ByO3qDS2.js"></script>
+  <script type="module" crossorigin src="/lmintelligencev2.github.io/assets/index-B5Uu-_3u.js"></script>
   <link rel="stylesheet" crossorigin href="/lmintelligencev2.github.io/assets/index-C8j-7D97.css">
 </head>
 <body>
