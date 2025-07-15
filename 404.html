@@ -10,7 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
   <script>
-    // GitHub Pages SPA redirect handler
+    // GitHub Pages SPA redirect
+    // https://github.com/rafgraph/spa-github-pages
     (function(l) {
       if (l.search[1] === '/' ) {
         var decoded = l.search.slice(1).split('&').map(function(s) { 
@@ -22,10 +23,28 @@
       }
     }(window.location))
   </script>
-  <script type="module" crossorigin src="/lmintelligencev2.github.io/assets/index-CHQkaf0N.js"></script>
-  <link rel="stylesheet" crossorigin href="/lmintelligencev2.github.io/assets/index-DQ-0zqp8.css">
 </head>
 <body>
   <div id="root"></div>
+  <script>
+    // Check if we're on a route that should redirect to the SPA
+    var path = window.location.pathname.replace('/lmintelligencev2.github.io', '');
+    if (path === '/terms-of-service' || path === '/privacy-policy' || path === '/data-deletion') {
+      window.location.replace('/lmintelligencev2.github.io/?/' + path.slice(1));
+    } else {
+      // Load the main app
+      var script = document.createElement('script');
+      script.src = '/lmintelligencev2.github.io/assets/index-Dj3-oyXB.js';
+      script.type = 'module';
+      script.crossOrigin = 'true';
+      document.head.appendChild(script);
+      
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '/lmintelligencev2.github.io/assets/index-Bn-MsWDM.css';
+      link.crossOrigin = 'true';
+      document.head.appendChild(link);
+    }
+  </script>
 </body>
 </html>
