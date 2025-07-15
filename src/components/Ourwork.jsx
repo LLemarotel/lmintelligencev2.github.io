@@ -34,8 +34,8 @@ const OurWork = () => {
     },
     {
       title: "Encre Noire",
-      mockup: import.meta.env.BASE_URL + "caroussel-tatoo.mp4",
-      preview: import.meta.env.BASE_URL + "caroussel-tatoo.mp4",
+      mockup: "/caroussel-tatoo.mp4",
+      preview: "/caroussel-tatoo.mp4",
       link: "https://lmintelligence.fr/maquettes/tatoo/",
       mediaType: "video"
     }
