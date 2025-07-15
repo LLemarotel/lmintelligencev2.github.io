@@ -6,36 +6,36 @@ const OurWork = () => {
   const projects = [
     {
       title: "Le Goût Divin",
-      mockup: import.meta.env.BASE_URL + "caroussel restaurant.mp4",
-    preview: import.meta.env.BASE_URL + "caroussel restaurant.mp4",
+      mockup: "/caroussel restaurant.mp4",
+    preview: "/caroussel restaurant.mp4",
       link: "https://lmintelligence.fr/maquettes/restaurant/",
       mediaType: "video"
     },
     {
       title: "Climacool",
-      mockup: import.meta.env.BASE_URL + "caroussel clim.m.mp4",
-    preview: import.meta.env.BASE_URL + "caroussel clim.m.mp4",
+      mockup: "/caroussel clim.m.mp4",
+    preview: "/caroussel clim.m.mp4",
       link: "https://lmintelligence.fr/maquettes/clim/",
       mediaType: "video"
     },
     {
       title: "Pizza Che Vuoi",
-      mockup: import.meta.env.BASE_URL + "caroussel pizza.mov.mp4",
-    preview: import.meta.env.BASE_URL + "caroussel pizza.mov.mp4",
+      mockup: "/caroussel pizza.mov.mp4",
+    preview: "/caroussel pizza.mov.mp4",
       link: "https://lmintelligence.fr/maquettes/pizza/",
       mediaType: "video"
     },
     {
       title: "Express Vitre",
-      mockup: import.meta.env.BASE_URL + "caroussel miroir.mov.mp4",
-    preview: import.meta.env.BASE_URL + "caroussel miroir.mov.mp4",
+      mockup: "/caroussel miroir.mov.mp4",
+    preview: "/caroussel miroir.mov.mp4",
       link: "https://lmintelligence.fr/maquettes/miroir/",
       mediaType: "video"
     },
     {
       title: "Encre Noire",
-      mockup: import.meta.env.BASE_URL + "caroussel tatoo.mp4",
-      preview: import.meta.env.BASE_URL + "caroussel tatoo.mp4",
+      mockup: "/caroussel-tatoo.mp4",
+      preview: "/caroussel-tatoo.mp4",
       link: "https://lmintelligence.fr/maquettes/tatoo/",
       mediaType: "video"
     }

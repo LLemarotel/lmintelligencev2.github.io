@@ -131,14 +131,14 @@ const About = () => {
       role: t('about.founders.luca.role'),
       education: t('about.founders.luca.education'),
       description: t('about.founders.luca.description'),
-      image: '/luca.png',
+      image: 'luca.png',
     },
     {
       name: 'Mathieu',
       role: t('about.founders.mathieu.role'),
       education: t('about.founders.mathieu.education'),
       description: t('about.founders.mathieu.description'),
-      image: import.meta.env.BASE_URL + 'mathieu.jpeg',
+      image: 'mathieu.jpeg',
     },
   ];
 
