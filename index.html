@@ -35,11 +35,25 @@
       
       function safePlayVideos() {
         var videos = document.querySelectorAll('video');
+        var visibleVideos = [];
+        
+        // Only target visible videos that are actually in the DOM
         videos.forEach(function(video, index) {
-          if (video && !video.ended && video.paused) {
+          if (video && video.offsetParent !== null && video.src) { // Check if visible and has source
+            visibleVideos.push({element: video, index: index});
+          }
+        });
+        
+        console.log('Found ' + visibleVideos.length + ' visible videos out of ' + videos.length + ' total');
+        
+        visibleVideos.forEach(function(videoData) {
+          var video = videoData.element;
+          var index = videoData.index;
+          
+          if (!video.ended && video.paused) {
             try {
               video.muted = true;
-              video.loop = true; // Ensure looping on mobile
+              video.loop = true;
               video.playsInline = true;
               video.setAttribute('playsinline', 'true');
               video.setAttribute('webkit-playsinline', 'true');
@@ -48,7 +62,7 @@
               var playPromise = video.play();
               if (playPromise !== undefined) {
                 playPromise.then(function() {
-                  console.log('Mobile video ' + (index + 1) + ' playing and looping');
+                  console.log('Mobile video ' + (index + 1) + ' (' + video.src.split('/').pop() + ') playing');
                 }).catch(function(error) {
                   console.log('Mobile video ' + (index + 1) + ' autoplay prevented');
                 });
