@@ -22,26 +22,37 @@
       }
     }(window.location));
     
-    // Mobile video autoplay handler
+    // Mobile video autoplay handler - only for mobile devices
     (function() {
+      // Check if mobile device
+      var isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                    window.innerWidth < 768 || 
+                    ('ontouchstart' in window);
+      
+      if (!isMobile) return; // Exit if not mobile
+      
       var hasUserInteracted = false;
       
-      function forcePlayVideos() {
+      function safePlayVideos() {
         var videos = document.querySelectorAll('video');
         videos.forEach(function(video, index) {
-          if (video && !video.ended) {
-            video.muted = true;
-            video.playsInline = true;
-            video.setAttribute('playsinline', 'true');
-            video.setAttribute('webkit-playsinline', 'true');
-            
-            var playPromise = video.play();
-            if (playPromise !== undefined) {
-              playPromise.then(function() {
-                console.log('Video ' + (index + 1) + ' playing');
-              }).catch(function(error) {
-                console.log('Video ' + (index + 1) + ' autoplay blocked:', error);
-              });
+          if (video && !video.ended && video.paused) {
+            try {
+              video.muted = true;
+              video.playsInline = true;
+              video.setAttribute('playsinline', 'true');
+              video.setAttribute('webkit-playsinline', 'true');
+              
+              var playPromise = video.play();
+              if (playPromise !== undefined) {
+                playPromise.then(function() {
+                  console.log('Mobile video ' + (index + 1) + ' playing');
+                }).catch(function(error) {
+                  console.log('Mobile video ' + (index + 1) + ' autoplay prevented');
+                });
+              }
+            } catch (error) {
+              console.log('Mobile video ' + (index + 1) + ' error:', error.name);
             }
           }
         });
@@ -50,21 +61,16 @@
       function markInteraction() {
         if (!hasUserInteracted) {
           hasUserInteracted = true;
-          forcePlayVideos();
+          safePlayVideos();
           document.removeEventListener('touchstart', markInteraction);
           document.removeEventListener('click', markInteraction);
+          document.removeEventListener('scroll', markInteraction);
         }
       }
       
       document.addEventListener('touchstart', markInteraction, { passive: true });
       document.addEventListener('click', markInteraction, { passive: true });
-      
-      // Try initial play when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', forcePlayVideos);
-      } else {
-        forcePlayVideos();
-      }
+      document.addEventListener('scroll', markInteraction, { passive: true });
     })();
   </script>
   <script type="module" crossorigin src="/lmintelligencev2.github.io/assets/index-ByO3qDS2.js"></script>
