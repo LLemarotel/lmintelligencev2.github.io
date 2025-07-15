@@ -29,9 +29,9 @@ function App() {
           import.meta.env.BASE_URL + 'caroussel clim.m.mp4',
           import.meta.env.BASE_URL + 'caroussel pizza.mov.mp4',
           import.meta.env.BASE_URL + 'caroussel miroir.mov.mp4',
-          '/caroussel-tatoo.mp4',
+          import.meta.env.BASE_URL + 'caroussel-tatoo.mp4',
         ],
-        images: ['/luca.png', '/mathieu.jpeg'],
+        images: [import.meta.env.BASE_URL + 'luca.png', import.meta.env.BASE_URL + 'mathieu.jpeg'],
       };
 
       const videoPromises = criticalAssets.videos.map((src) => {
