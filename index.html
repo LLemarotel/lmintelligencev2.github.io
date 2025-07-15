@@ -32,43 +32,63 @@
       if (!isMobile) return; // Exit if not mobile
       
       var hasUserInteracted = false;
+      var processedVideos = new Set(); // Track processed videos to avoid duplicates
+      
+      function setupVideo(video) {
+        // Create unique identifier for this video
+        var videoId = video.src + '_' + video.offsetTop + '_' + video.offsetLeft;
+        
+        if (processedVideos.has(videoId)) {
+          return; // Already processed this video
+        }
+        processedVideos.add(videoId);
+        
+        // Set up video properties
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.setAttribute('playsinline', 'true');
+        video.setAttribute('webkit-playsinline', 'true');
+        video.setAttribute('loop', 'true');
+        
+        // Add event listeners to ensure looping
+        video.addEventListener('ended', function() {
+          video.currentTime = 0;
+          video.play().catch(function() {});
+        });
+        
+        // Add error handling
+        video.addEventListener('error', function() {
+          console.log('Video error for:', video.src.split('/').pop());
+        });
+        
+        return video;
+      }
       
       function safePlayVideos() {
         var videos = document.querySelectorAll('video');
-        var visibleVideos = [];
+        var activeVideos = [];
         
-        // Only target visible videos that are actually in the DOM
-        videos.forEach(function(video, index) {
-          if (video && video.offsetParent !== null && video.src) { // Check if visible and has source
-            visibleVideos.push({element: video, index: index});
+        // Filter for truly visible and active videos
+        videos.forEach(function(video) {
+          if (video && video.offsetParent !== null && video.src && 
+              video.getBoundingClientRect().width > 0) {
+            activeVideos.push(video);
           }
         });
         
-        console.log('Found ' + visibleVideos.length + ' visible videos out of ' + videos.length + ' total');
+        console.log('Processing ' + activeVideos.length + ' active videos out of ' + videos.length + ' total');
         
-        visibleVideos.forEach(function(videoData) {
-          var video = videoData.element;
-          var index = videoData.index;
-          
-          if (!video.ended && video.paused) {
-            try {
-              video.muted = true;
-              video.loop = true;
-              video.playsInline = true;
-              video.setAttribute('playsinline', 'true');
-              video.setAttribute('webkit-playsinline', 'true');
-              video.setAttribute('loop', 'true');
-              
-              var playPromise = video.play();
-              if (playPromise !== undefined) {
-                playPromise.then(function() {
-                  console.log('Mobile video ' + (index + 1) + ' (' + video.src.split('/').pop() + ') playing');
-                }).catch(function(error) {
-                  console.log('Mobile video ' + (index + 1) + ' autoplay prevented');
-                });
-              }
-            } catch (error) {
-              console.log('Mobile video ' + (index + 1) + ' error:', error.name);
+        activeVideos.forEach(function(video, index) {
+          var processedVideo = setupVideo(video);
+          if (processedVideo && video.paused && !video.ended) {
+            var playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.then(function() {
+                console.log('Mobile video playing:', video.src.split('/').pop());
+              }).catch(function(error) {
+                console.log('Video autoplay prevented:', video.src.split('/').pop());
+              });
             }
           }
         });
@@ -78,6 +98,12 @@
         if (!hasUserInteracted) {
           hasUserInteracted = true;
           safePlayVideos();
+          
+          // Set up a periodic check to handle React re-renders
+          setInterval(function() {
+            safePlayVideos();
+          }, 3000);
+          
           document.removeEventListener('touchstart', markInteraction);
           document.removeEventListener('click', markInteraction);
           document.removeEventListener('scroll', markInteraction);
