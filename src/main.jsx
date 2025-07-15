@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     element: <UserDataDeletion />,
   },
 ], {
-  basename: "/lmintelligencev2.github.io/",
+  basename: import.meta.env.BASE_URL,
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
