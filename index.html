@@ -39,14 +39,16 @@
           if (video && !video.ended && video.paused) {
             try {
               video.muted = true;
+              video.loop = true; // Ensure looping on mobile
               video.playsInline = true;
               video.setAttribute('playsinline', 'true');
               video.setAttribute('webkit-playsinline', 'true');
+              video.setAttribute('loop', 'true');
               
               var playPromise = video.play();
               if (playPromise !== undefined) {
                 playPromise.then(function() {
-                  console.log('Mobile video ' + (index + 1) + ' playing');
+                  console.log('Mobile video ' + (index + 1) + ' playing and looping');
                 }).catch(function(error) {
                   console.log('Mobile video ' + (index + 1) + ' autoplay prevented');
                 });
