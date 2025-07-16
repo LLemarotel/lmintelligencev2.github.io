@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Che Pizza Vuoi - Pizzaiolo Tradizionale</title>
+    <meta name="description" content="Scopri le migliori pizze tradizionali fatte in casa a Sanremo. Servizio di consegna e da asporto.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .hero-background-image {
+            background-image: url('background.png'); /* Sostituire con l'immagine di sfondo della pizza */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: opacity(0.7);
+            z-index: -1;
+        }
+        .glass-effect { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.1); }
+        .scroll-smooth { scroll-behavior: smooth; }
+        .stars { color: #31522D; /* Colore secondario per le stelle */ }
+
+        /* Custom styles for new color palette */
+        .text-primary { color: #D94A2B; } /* Colore del logo e accenti */
+        .bg-primary { background-color: #D94A2B; }
+        .hover\:bg-primary-dark:hover { background-color: #BF3A1F; } /* Un po' più scuro per l'hover */
+        .text-secondary { color: #31522D; } /* Colore secondario */
+        .bg-secondary { background-color: #31522D; }
+        .text-tertiary { color: #31522D; } /* Colore terziario diventa colore secondario */
+        .bg-tertiary { background-color: #31522D; }
+
+        /* Tailwind overrides for specific elements */
+        .text-blue-600 { color: #D94A2B; }
+        .hover\:text-blue-600:hover { color: #D94A2B; }
+        .bg-blue-600 { background-color: #D94A2B; }
+        .hover\:bg-blue-700:hover { background-color: #BF3A1F; }
+        .text-blue-200 { color: #31522D; }
+        .text-blue-100 { color: #31522D; }
+        .bg-blue-50 { background-color: #E6EEE5; } /* Tonalità molto chiara del colore secondario */
+        .bg-blue-100 { background-color: #31522D; } /* Utilizzo del colore secondario */
+        .bg-green-100 { background-color: #D4EDDA; } /* Tonalità chiara del colore secondario */
+        .text-green-600 { color: #31522D; }
+        .group-hover\:bg-green-600:hover { background-color: #31522D; }
+        .group-hover\:text-green-600:hover { color: #31522D; }
+        .text-green-500 { color: #31522D; }
+        .bg-purple-100 { background-color: #E6E6FA; } /* Mantenere un colore neutro se non c'è una corrispondenza diretta */
+        .text-purple-600 { color: #800080; } /* Mantenere un colore neutro se non c'è una corrispondenza diretta */
+        .bg-yellow-100 { background-color: #31522D; } /* Utilizzo del colore secondario */
+        .text-yellow-600 { color: #D94A2B; } /* Colore primario per un buon contrasto con il giallo */
+        .text-yellow-400 { color: #31522D; } /* Colore secondario per le stelle di recensione */
+
+        /* From styles.css: */
+        /* Loading animation for maps */
+        iframe {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Custom CSS to handle safe area insets for iOS devices */
+        @supports (padding-top: env(safe-area-inset-top)) {
+            .navbar-safe-area-padding {
+                padding-top: env(safe-area-inset-top);
+            }
+        }
+
+        /* Instagram Embed Adjustments */
+        .instagram-media {
+            width: 100% !important;
+            min-width: unset !important;
+            max-width: 100% !important;
+            margin: 0 auto;
+        }
+        .instagram-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Allows embeds to wrap on smaller screens */
+            gap: 1.5rem; /* Space between embeds */
+        }
+    </style>
+</head>
+<body class="scroll-smooth">
+    <script src="https://unpkg.com/lucide"></script>
+
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50 navbar-safe-area-padding">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img src="graphisme/favicon.png" alt="Logo Che Pizza Vuoi" class="h-10 w-10 mr-2">
+                        <span class="text-xl font-bold">
+                            <span class="text-primary">Che Pizza Vuoi</span>
+                            <span class="text-secondary">farine bio</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#Homepage" class="text-gray-900 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Homepage</a>
+                        <a href="#about" class="text-gray-900 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">La Nostra Storia</a>
+                        <a href="#menu" class="text-gray-900 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Il Nostro Menù</a>
+                        <a href="#reviews" class="text-gray-900 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Recensioni</a>
+                        <a href="#contact" class="bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-dark transition-colors">Contatti</a>
+                    </div>
+                </div>
+
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-900 hover:text-primary focus:outline-none">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="#Homepage" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-primary">Homepage</a>
+                    <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-primary">La Nostra Storia</a>
+                    <a href="#menu" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-primary">Il Nostro Menù</a>
+                    <a href="#reviews" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-primary">Recensioni</a>
+                    <a href="#contact" class="block px-3 py-2 text-base font-medium bg-primary text-white rounded-md">Contatti</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="Homepage" class="min-h-screen flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="hero-background-image absolute inset-0"></div> <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    La Vera Pizza<br>
+                    <span class="text-secondary">a Sanremo</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-secondary max-w-3xl mx-auto">
+                    Pizze tradizionali, ingredienti freschi, sapienza artigianale da 20 anni.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#menu" class="bg-white text-primary px-8 py-4 rounded-full font-semibold text-lg hover:bg-red-50 transition-all transform hover:scale-105 shadow-lg">
+                        Scopri il Menù
+                    </a>
+                    <a href="tel:+33493123456" class="bg-primary text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-secondary hover:text-white transition-all transform hover:scale-105 shadow-lg flex items-center">
+                        04 93 12 34 56
+                    </a>
+                </div>
+
+                <div class="mt-12 flex flex-wrap justify-center items-center gap-8 text-secondary">
+                    <div class="flex items-center">
+                        <i data-lucide="award" class="w-6 h-6 mr-2"></i>
+                        <span>Oltre 20 anni di esperienza</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i data-lucide="chef-hat" class="w-6 h-6 mr-2"></i>
+                        <span>Ingredienti Freschi</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i data-lucide="bike" class="w-6 h-6 mr-2"></i>
+                        <span>Consegna Veloce</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <i data-lucide="chevron-down" class="w-8 h-8"></i>
+        </div>
+    </section>
+
+    
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                        La Nostra Storia: La Passione per la Pizza
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Da oltre 20 anni, Che Pizza Vuoi perpetua la tradizione della pizza artigianale a Sanremo. Il nostro segreto risiede in ingredienti freschi, un impasto a lievitazione naturale e una cottura nel forno a legna.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Ogni pizza è preparata con amore e maestria dai nostri pizzaioli esperti, per offrirti un'esperienza di gusto indimenticabile, proprio come in Italia!
+                    </p>
+
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-primary rounded-lg p-3 mr-4">
+                                <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Fatto in Casa</h4>
+                                <p class="text-gray-600">Impasti e salse fatti in casa</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-secondary rounded-lg p-3 mr-4">
+                                <i data-lucide="leaf" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Ingredienti Locali</h4>
+                                <p class="text-gray-600">Prodotti freschi e di stagione</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="bg-primary rounded-2xl p-8 text-white">
+                        <h3 class="text-2xl font-bold mb-6">Perché Sceglierci?</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i data-lucide="star" class="w-6 h-6 mr-3 text-secondary"></i>
+                                <span>Tradizione e Qualità</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-lucide="fire" class="w-6 h-6 mr-3 text-secondary"></i>
+                                <span>Cottura nel forno a legna</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-lucide="truck" class="w-6 h-6 mr-3 text-secondary"></i>
+                                <span>Consegna rapida a domicilio</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-lucide="map-pin" class="w-6 h-6 mr-3 text-secondary"></i>
+                                <span>Servizio in loco e da asporto</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Il Nostro Menù delle Pizze</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Scopri le nostre creazioni uniche, preparate con ingredienti freschi e di stagione.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <img src="pizzaimg/margheritta.webp" alt="Pizza Margherita" class="rounded-xl w-full h-56 object-cover mb-4">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Margherita</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">Salsa di pomodoro San Marzano, mozzarella fior di latte, basilico fresco, olio d'oliva extra vergine.</p>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-primary text-xl font-semibold">12,50 €</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <img src="pizzaimg/regina.jpg" alt="Pizza Regina" class="rounded-xl w-full h-56 object-cover mb-4">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Regina</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">Salsa di pomodoro, mozzarella, prosciutto cotto, funghi freschi, olive nere.</p>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-primary text-xl font-semibold">14,00 €</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <img src="pizzaimg/calzone.webp" alt="Pizza Calzone" class="rounded-xl w-full h-56 object-cover mb-4">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Calzone</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">Pizza ripiena con salsa di pomodoro, mozzarella, prosciutto e uovo.</p>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-primary text-xl font-semibold">13,50 €</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <img src="pizzaimg/quattroformagi.avif" alt="Pizza 4 Fromaggi" class="rounded-xl w-full h-56 object-cover mb-4">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Quattro Formaggi</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">Mozzarella, gorgonzola, caprino, emmental. Una delizia per gli amanti del formaggio.</p>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-primary text-xl font-semibold">15,00 €</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <img src="pizzaimg/vege.avif" alt="Pizza Vegetariana" class="rounded-xl w-full h-56 object-cover mb-4">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Vegetariana</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">Salsa di pomodoro, mozzarella, peperoni, cipolle, funghi, olive, carciofi.</p>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-primary text-xl font-semibold">13,00 €</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <img src="pizzaimg/chorizo.jpeg" alt="Pizza Chorizo" class="rounded-xl w-full h-56 object-cover mb-4">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Chorizo</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">Salsa di pomodoro, mozzarella, chorizo piccante, peperoni.</p>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-primary text-xl font-semibold">14,50 €</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="instagram-feed" class="py-12 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Seguici su Instagram!</h2>
+            <p class="text-xl text-gray-600 mb-8">Scopri le nostre ultime creazioni e l'atmosfera della pizzeria.</p>
+
+            <div class="instagram-container">
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/chepizzavuoifarinebio/" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/EXAMPLE_POST_ID/?utm_source=ig_web_copy_link" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.111,60.657 530.342,55.887 530.342,50 C530.342,44.111 535.111,39.342 541,39.342 C546.887,39.342 551.657,44.111 551.657,50 C551.657,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.113,58.899 557.113,50 C557.113,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.045 564.756,66.654 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.653,73.757 556.044,74.244 553.101,74.378 C549.615,74.532 548.587,74.552 541,74.552 C533.413,74.552 532.385,74.532 528.899,74.378 C525.955,74.244 524.346,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.654 516.755,65.045 516.621,62.101 C516.467,58.615 516.448,57.587 516.448,50 C516.448,42.413 516.467,41.385 516.621,37.899 C516.755,34.955 517.244,33.346 517.654,32.338 C518.197,30.94 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.346,26.244 525.955,25.756 528.899,25.622 C532.385,25.468 533.413,25.448 541,25.448 C548.587,25.448 549.615,25.468 553.101,25.622 C556.045,25.756 557.654,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.94 564.346,32.338 C564.756,33.346 565.244,34.955 565.378,37.899 C565.532,41.385 565.552,42.413 565.552,50 C565.552,57.587 565.532,58.615 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C549.882,20.018 548.855,20 541,20 C533.145,20 532.118,20.018 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.833,32.258 511.326,34.438 511.181,37.631 C511.018,41.117 511,42.145 511,50 C511,57.855 511.018,58.883 511.181,62.369 C511.326,65.562 511.833,67.742 512.574,69.651 C513.342,71.625 514.368,73.297 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.829 C532.118,79.982 533.145,80 541,80 C548.855,80 549.882,79.982 553.369,79.829 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.297 568.659,71.625 569.425,69.651 C570.167,67.742 570.674,65.562 570.82,62.369 C570.982,58.883 571,57.855 571,50 C571,42.145 570.982,41.117 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Visualizza questo post su Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px;"></div> <div style="background-color: #F4F4F4; height: 12.5px; width: 12.5px; transform: translateX(10px) translateY(-10px) rotate(90deg);"></div></div><div style="flex-grow: 1; margin-right: 14px;"> <div style="background-color: #F4F4F4; border-radius: 4px; height: 14px; width: 100px;"></div> <div style="background-color: #F4F4F4; border-radius: 4px; height: 14px; margin-top: 2px; width: 120px;"></div></div></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Un post condiviso da Nome Profilo Instagram (@nomeprofilo)</div></div></div></blockquote> <script async src="//www.instagram.com/embed.js"></script>
+                
+                </div>
+            <p class="text-gray-600 mt-8">
+                <a href="https://www.instagram.com/YOUR_INSTAGRAM_USERNAME/" target="_blank" class="text-primary hover:underline font-semibold">Visita il nostro profilo Instagram per di più!</a>
+            </p>
+        </div>
+    </section>
+
+    <section id="reviews" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Recensioni dei Clienti</h2>
+                <p class="text-xl text-gray-600">Cosa dicono i nostri clienti dei nostri servizi</p>
+                <div id="rating-summary" class="flex items-center justify-center mt-6">
+                    <div class="flex items-center">
+                        <div class="flex text-secondary text-2xl mr-2">
+                            <span>★★★★★</span>
+                        </div>
+                        <span class="text-2xl font-bold text-gray-900">4.8</span>
+                        <span class="text-gray-600 ml-2">su Google</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="reviews-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+
+            <div class="text-center mt-12">
+                <button id="load-more-reviews" class="bg-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-primary-dark transition-colors">
+                    Vedi più recensioni
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Contattaci</h2>
+                <p class="text-xl text-gray-600">Ordina la tua pizza o prenota il tuo tavolo</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="bg-white rounded-2xl p-8 shadow-lg">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Richiesta di Informazioni</h3>
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">Nome *</label>
+                                <input type="text" id="firstName" name="firstName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <div>
+                                <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Cognome *</label>
+                                <input type="text" id="lastName" name="lastName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Telefono *</label>
+                            <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label for="service" class="block text-sm font-medium text-gray-700 mb-2">Oggetto</label>
+                            <select id="service" name="service" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option value="">Seleziona un oggetto</option>
+                                <option value="ordine">Ordine / Consegna</option>
+                                <option value="prenotazione">Prenotazione tavolo</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="altro">Altro</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Messaggio</label>
+                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Il tuo messaggio..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-dark transition-colors">
+                            Invia Richiesta
+                        </button>
+
+                        <p class="text-sm text-gray-500 text-center">
+                            * Campi obbligatori. Risposta garantita entro 24 ore.
+                        </p>
+                    </form>
+                </div>
+
+                <div>
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-6">I Nostri Contatti</h3>
+
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 bg-primary rounded-lg p-3 mr-4">
+                                        <i data-lucide="map-pin" class="w-6 h-6 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Indirizzo</h4>
+                                        <p class="text-gray-600">45 Rue des Pizzas<br>06400 Sanremo, Francia</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 bg-secondary rounded-lg p-3 mr-4">
+                                        <i data-lucide="phone" class="w-6 h-6 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Telefono</h4>
+                                        <p class="text-gray-600">
+                                            <a href="tel:+33493123456" class="font-bold text-gray-800 hover:text-primary transition-colors">04 93 12 34 56</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 bg-secondary rounded-lg p-3 mr-4">
+                                        <i data-lucide="mail" class="w-6 h-6 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Email</h4>
+                                        <p class="text-gray-600">
+                                            <a href="mailto:contact@ladolcevita-Sanremo.fr" class="hover:text-primary">contact@ladolcevita-Sanremo.fr</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 bg-primary rounded-lg p-3 mr-4">
+                                        <i data-lucide="clock" class="w-6 h-6 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Orari</h4>
+                                        <p class="text-gray-600">
+                                            Mar-Dom: 12h-14h30, 18h30-22h30<br>
+                                            Chiuso il Lunedì
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-100 rounded-2xl p-6 shadow-md">
+                            <h4 class="font-semibold text-gray-900 mb-4">Zona di Consegna</h4>
+                            <p class="text-gray-600 mb-4">Consegniamo in un raggio di 10 km intorno a Sanremo:</p>
+                            <div class="grid grid-cols-2 gap-2 text-sm text-gray-600">
+                                <span>• Sanremo</span>
+                                <span>• Le Cannet</span>
+                                <span>• Mandelieu-la-Napoule</span>
+                                <span>• Mougins</span>
+                                <span>• Vallauris</span>
+                                <span>• Antibes (parziale)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="h-96">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5781.669756374234!2d7.009099376026391!3d43.56832367110627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cc2a083a9496b3%3A0xd5637cba0bb00192!2sDaikin%20AES%20Climatisation%20Installateur%20Conseil!5e0!3m2!1sfr!2sfr!4v1749909562597!5m2!1sfr!2sfr"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Localizzazione Che Pizza Vuoi Sanremo">
+        </iframe>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="pizza" class="h-8 w-8 text-secondary mr-2"></i>
+                        <span class="text-2xl font-bold">Che Pizza Vuoi</span>
+                    </div>
+                    <p class="text-gray-300 mb-6 max-w-md">
+                        La tua pizzeria tradizionale a Sanremo. Pizze fatte con passione e ingredienti di qualità.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-primary hover:bg-primary-dark p-3 rounded-full transition-colors" aria-label="Facebook">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="bg-primary hover:bg-primary-dark p-3 rounded-full transition-colors" aria-label="Instagram">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Link Veloci</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#Homepage" class="hover:text-secondary transition-colors">Homepage</a></li>
+                        <li><a href="#about" class="hover:text-secondary transition-colors">La Nostra Storia</a></li>
+                        <li><a href="#menu" class="hover:text-secondary transition-colors">Il Nostro Menù</a></li>
+                        <li><a href="#reviews" class="hover:text-secondary transition-colors">Recensioni Clienti</a></li>
+                        <li><a href="#contact" class="hover:text-secondary transition-colors">Contatti</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contatti</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-center">
+                            <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+                            <a href="tel:+33493123456" class="hover:text-secondary transition-colors">04 93 12 34 56</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+                            <a href="mailto:contact@ladolcevita-Sanremo.fr" class="hover:text-secondary transition-colors">contact@ladolcevita-Sanremo.fr</a>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="map-pin" class="w-4 h-4 mr-2 mt-1"></i>
+                            <span>45 Rue des Pizzas<br>06400 Sanremo</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">
+                    © 2025 Che Pizza Vuoi. Tutti i diritti riservati.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-secondary text-sm transition-colors">Note Legali</a>
+                    <a href="#" class="text-gray-400 hover:text-secondary text-sm transition-colors">Politica sulla Privacy</a>
+                    <a href="#" class="text-gray-400 hover:text-secondary text-sm transition-colors">Condizioni Generali di Vendita</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Google Maps API key and Place ID
+        const GOOGLE_API_KEY = 'YOUR_Maps_API_KEY'; // Your API key
+        const PLACE_ID        = 'YOUR_GOOGLE_PLACE_ID'; // Your Place ID
+
+        // From script.js:
+        // Performance optimization: Lazy loading for iframe
+        const mapIframe = document.querySelector('iframe');
+        if (mapIframe) {
+            const mapObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Map is visible, ensure it's loaded
+                        entry.target.style.opacity = '1';
+                        mapObserver.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            mapObserver.observe(mapIframe);
+        }
+
+        // We will wrap most of our code in this event listener.
+        // It waits for the entire HTML document to be loaded and parsed before running any JavaScript.
+        document.addEventListener('DOMContentLoaded', () => {
+
+            console.log("DOMContentLoaded fired. typeof lucide:", typeof lucide); // Add this line
+        try {
+            lucide.createIcons();
+            console.log("Lucide icons created during DOMContentLoaded.");
+        } catch (e) {
+            console.error("Lucide icons could not be created during DOMContentLoaded. Error:", e);
+        }
+
+            // 1. Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu    = document.getElementById('mobile-menu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // 2. Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        if (mobileMenu) {
+                            mobileMenu.classList.add('hidden'); // Close mobile menu after clicking a link
+                        }
+                    }
+                });
+            });
+
+            // 3. Contact form submission
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const submitBtn    = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Invio in corso...';
+                    submitBtn.disabled    = true;
+
+                    // Simulate form submission
+                    setTimeout(() => {
+                        // In a real application, you would send this data to a server
+                        // via fetch() or XMLHttpRequest.
+                        // For this example, we show a simple alert.
+                        // NOTE: Using window.alert for demonstration. In a real app, use a custom modal.
+                        alert('Grazie per la tua richiesta! Ti contatteremo il prima possibile.');
+                        this.reset(); // Clear the form fields
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled    = false;
+                    }, 2000); // Simulate network delay
+                });
+            }
+
+            // 4. Google Reviews Integration - Helper functions
+            function createReviewElement(review) {
+                const div = document.createElement('div');
+                div.className = 'bg-white rounded-2xl p-6 shadow-lg';
+                // Extract initials from author name
+                const initials = review.author_name.split(' ').map(n => n[0]).join('').toUpperCase();
+                // Create star rating string
+                const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+
+                div.innerHTML = `
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold mr-4">${initials}</div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">${review.author_name}</h4>
+                            <div class="flex text-secondary">${stars}</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">${review.text}</p>
+                    <p class="text-sm text-gray-400 mt-4">${review.relative_time_description}</p>
+                `;
+                return div;
+            }
+
+            // 5. "Load more reviews" button functionality
+            const loadMoreBtn = document.getElementById('load-more-reviews');
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function() {
+                    // Redirect to Google Maps reviews page in a new tab using the PLACE_ID
+                    window.open(`https://maps.google.com/?cid=${PLACE_ID}`, '_blank');
+                });
+            }
+
+            // 6. Intersection Observer for scroll animations
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Apply animations to sections/elements as they come into view
+            document.querySelectorAll('.bg-white, .hero-gradient > div').forEach(el => {
+                el.style.opacity = '0'; // Start invisible
+                el.style.transform = 'translateY(20px)'; // Start slightly below
+                el.style.transition = 'all 0.6s ease'; // Smooth transition
+                observer.observe(el);
+            });
+
+            // 7. Back-to-top button functionality
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                let btn = document.getElementById('back-to-top');
+
+                // Create button if it doesn't exist
+                if (!btn) {
+                    btn = document.createElement('button');
+                    btn.id = 'back-to-top';
+                    btn.innerHTML = '<i data-lucide="arrow-up" class="w-6 h-6"></i>'; // Lucide icon for arrow up
+                    btn.className = 'fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark transition-all duration-300 z-50';
+                    btn.style.display = 'none'; // Hidden by default
+                    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); // Scroll to top on click
+                    document.body.appendChild(btn);
+                    try {
+                        lucide.createIcons(); // Initialize icon for the newly created button
+                    } catch(e){
+                        console.error("Lucide icons could not be created for back-to-top button.", e);
+                    }
+                }
+                // Show/hide button based on scroll position
+                btn.style.display = scrollTop > 500 ? 'block' : 'none';
+            });
+
+        }); // End of DOMContentLoaded
+
+        // Google Maps API callback function
+        // This function is called by the Google Maps script once it's loaded.
+        function initMap() {
+            console.log("initMap called: Google Maps API and Places Library are loaded.");
+
+            // A dummy div is needed to create a PlacesService instance
+            const dummyDivForService = document.createElement('div');
+            const service = new google.maps.places.PlacesService(dummyDivForService);
+
+            // Request details for the specific PLACE_ID
+            const request = {
+                placeId: PLACE_ID,
+                fields: ['reviews', 'rating', 'user_ratings_total', 'name'] // Fields to retrieve
+            };
+
+            // Perform the getDetails request
+            service.getDetails(request, (place, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK && place) {
+                    console.log("SUCCESS! Place details fetched using PlacesService:");
+                    console.log("Place Name:", place.name);
+                    console.log("Reviews:", place.reviews);
+                    console.log("Rating:", place.rating);
+                    console.log("Total User Ratings:", place.user_ratings_total);
+
+                    // Update the rating summary section
+                    const summaryContainer = document.getElementById('rating-summary');
+                    if (summaryContainer && place.rating) {
+                        summaryContainer.innerHTML = `
+                            <div class="flex items-center">
+                                <div class="flex text-secondary text-2xl mr-2">${'★'.repeat(Math.round(place.rating))}${'☆'.repeat(5 - Math.round(place.rating))}</div>
+                                <span class="text-2xl font-bold text-gray-900">${place.rating.toFixed(1)}</span>
+                                <span class="text-gray-600 ml-2">su ${place.user_ratings_total} recensioni Google</span>
+                            </div>`;
+                    }
+
+                    // Populate the reviews container
+                    const reviewsContainer = document.getElementById('reviews-container');
+                    if (reviewsContainer && place.reviews) {
+                        reviewsContainer.innerHTML = ''; // Clear existing reviews (if any hardcoded)
+                        place.reviews.forEach(review => {
+                            const div = document.createElement('div');
+                            div.className = 'bg-white rounded-2xl p-6 shadow-lg';
+                            const initials = review.author_name.split(' ').map(n => n[0]).join('').toUpperCase();
+                            const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+                            div.innerHTML = `
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold mr-4">${initials}</div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">${review.author_name}</h4>
+                                        <div class="flex text-secondary">${stars}</div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600">${review.text}</p>
+                                <p class="text-sm text-gray-400 mt-4">${review.relative_time_description}</p>
+                            `;
+                            reviewsContainer.appendChild(div);
+                        });
+                    }
+                } else {
+                    console.error("ERROR: PlacesService getDetails failed. Status:", status);
+                    console.error("This is likely due to API Key restrictions (ensure HTTP referrers are correct), or an incorrect Place ID, or a temporary Google API issue.");
+                }
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_Maps_API_KEY&libraries=places&callback=initMap"></script>
+</body>
+</html>

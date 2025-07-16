@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Artiste tatoueur à Bordeaux, spécialisé dans les créations uniques et sur mesure. Tatouages noirs et gris, réalisme et pièces graphiques.">
+    <title>Encre Noire - Artiste Tatoueur à Bordeaux</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <nav class="fixed top-0 w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="text-2xl font-bold text-white header-title-text">ENCRE NOIRE</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#hero" class="text-white hover:text-gray-300 transition menu-item-text">Accueil</a>
+                    <a href="#services" class="text-white hover:text-gray-300 transition menu-item-text">Styles</a>
+                    <a href="#about" class="text-white hover:text-gray-300 transition menu-item-text">L'artiste</a>
+                    <a href="#portfolio" class="text-white hover:text-gray-300 transition menu-item-text">Galerie</a>
+                    <a href="#reviews" class="text-white hover:text-gray-300 transition menu-item-text">Avis</a>
+                    <a href="#contact" class="text-white hover:text-gray-300 transition menu-item-text">Contact</a>
+                </div>
+
+                <button class="md:hidden" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-white text-2xl menu-item-text"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-black/90 border-t border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#hero" class="block px-3 py-2 text-white hover:text-gray-300 menu-item-text">Accueil</a>
+                <a href="#services" class="block px-3 py-2 text-white hover:text-gray-300 menu-item-text">Styles</a>
+                <a href="#about" class="block px-3 py-2 text-white hover:text-gray-300 menu-item-text">L'artiste</a>
+                <a href="#portfolio" class="block px-3 py-2 text-white hover:text-gray-300 menu-item-text">Galerie</a>
+                <a href="#reviews" class="block px-3 py-2 text-white hover:text-gray-300 menu-item-text">Avis</a>
+                <a href="#contact" class="block px-3 py-2 text-white hover:text-gray-300 menu-item-text">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero" class="relative h-screen overflow-hidden">
+        <video id="heroVideo" class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline>
+            <source src="hero1.mp4" type="video/mp4">
+            <!-- Vidéo du tatoueur en action à ajouter -->
+        </video>
+
+        <div class="video-overlay relative h-full flex items-center justify-center">
+            <div class="relative z-10 text-center text-white px-4 animate-fadeInUp">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">L'Art du Tatouage à Bordeaux</h1>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">Créations uniques qui racontent votre histoire. Prenez rendez-vous pour une consultation.</p>
+                <button onclick="openQuoteModal()" class="bg-gray-900 hover:bg-black text-white px-8 py-4 rounded-full text-lg font-semibold transition transform hover:scale-105">
+                    Prendre Rendez-vous
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="h-[400px] lg:h-[500px] rounded-lg overflow-hidden shadow-lg relative" id="mapContainer">
+                    <iframe
+                        id="googleMapIframe"
+                        width="100%"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <div id="mapPlaceholder" class="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-700 text-center p-4 cursor-pointer" onclick="showCookieBannerForMap()">
+                        <p class="font-semibold">Veuillez accepter les cookies pour afficher la carte interactive.</p>
+                        <i class="fas fa-cookie-bite text-3xl mt-4"></i>
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">Horaires du salon</h2>
+
+                    <div class="bg-gray-50 rounded-lg p-8">
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                                <span class="font-semibold text-gray-900 text-lg">Mardi - Samedi</span>
+                                <span class="text-gray-600">10h00 - 19h00</span>
+                            </div>
+                            <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                                <span class="font-semibold text-gray-900 text-lg">Dimanche - Lundi</span>
+                                <span class="text-gray-600">Fermé</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 p-4 bg-gray-200 rounded-lg">
+                            <p class="text-sm text-gray-800">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                Uniquement sur rendez-vous.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">Styles & Créations</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 rounded-lg hover:shadow-lg transition">
+                    <div class="text-gray-900 text-5xl mb-4"> <i class="fas fa-pen-ruler"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Création sur mesure</h3>
+                    <p class="text-gray-600">Donnez vie à vos idées avec un design 100% personnalisé.</p>
+                </div>
+
+                <div class="text-center p-6 rounded-lg hover:shadow-lg transition">
+                    <div class="text-gray-900 text-5xl mb-4"> <i class="fas fa-bolt"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Tatouages Flash</h3>
+                    <p class="text-gray-600">Des créations originales prêtes à être tatouées.</p>
+                </div>
+
+                <div class="text-center p-6 rounded-lg hover:shadow-lg transition">
+                    <div class="text-gray-900 text-5xl mb-4"> <i class="fas fa-recycle"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Recouvrement</h3>
+                    <p class="text-gray-600">Transformez un ancien tatouage en une nouvelle œuvre d'art.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">À Propos de l'Artiste</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">La passion de l'encre et de la peau</h3>
+                    <p class="text-gray-600 mb-4">
+                        Avec plus de 10 ans d'expérience, votre artiste tatoueur à Bordeaux se spécialise dans la création de pièces uniques qui allient technique et émotion. Chaque tatouage est une collaboration, un dialogue entre votre histoire et sa vision artistique.
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        Le salon respecte les normes d'hygiène les plus strictes pour vous garantir une expérience sereine et sécurisée.
+                    </p>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-gray-900 mr-3"></i> <span>Consultation gratuite pour discuter de votre projet</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-gray-900 mr-3"></i> <span>Matériel stérile à usage unique</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-gray-900 mr-3"></i> <span>Spécialiste du noir et gris et des lignes fines</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-gray-900 mr-3"></i> <span>Suivi et conseils de cicatrisation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <img src="imagen-imagen-3.0-generate-002-20250707-122047-0.png" alt="Artiste tatoueur" class="rounded-lg shadow-xl w-full h-[400px] object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 rounded-b-lg">
+                        <h4 class="text-white text-xl font-semibold">Votre projet, son inspiration</h4>
+                        <p class="text-white/90">Un artisan passionné à votre service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">Galerie</h2>
+
+            <div class="relative">
+                <div class="carousel-container flex gap-4 overflow-x-auto pb-4" id="carousel">
+                    <div class="min-w-[300px] md:min-w-[400px] relative rounded-lg overflow-hidden shadow-lg">
+                        <img src="imagen-imagen-3.0-generate-002-20250707-122057-0.png" alt="Tatouage floral" class="w-full h-64 object-cover bg-gray-300">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                            <h3 class="text-white font-semibold">Composition florale</h3>
+                            <p class="text-white/80 text-sm">Lignes fines</p>
+                        </div>
+                    </div>
+
+                    <div class="min-w-[300px] md:min-w-[400px] relative rounded-lg overflow-hidden shadow-lg">
+                        <img src="imagen-imagen-3.0-generate-002-20250707-122204-0.png" alt="Tatouage géométrique" class="w-full h-64 object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                            <h3 class="text-white font-semibold">Pièce géométrique</h3>
+                            <p class="text-white/80 text-sm">Dotwork</p>
+                        </div>
+                    </div>
+
+                    <div class="min-w-[300px] md:min-w-[400px] relative rounded-lg overflow-hidden shadow-lg">
+                        <img src="imagen-imagen-3.0-generate-002-20250707-122213-0.png" alt="Recouvrement" class="w-full h-64 object-cover bg-gray-300">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                            <h3 class="text-white font-semibold">Recouvrement</h3>
+                            <p class="text-white/80 text-sm">Avant/Après</p>
+                        </div>
+                    </div>
+
+                    <div class="min-w-[300px] md:min-w-[400px] relative rounded-lg overflow-hidden shadow-lg">
+                        <img src="imagen-imagen-3.0-generate-002-20250707-122243-0.png" alt="Lettrage" class="w-full h-64 object-cover bg-gray-300">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                            <h3 class="text-white font-semibold">Lettrage</h3>
+                            <p class="text-white/80 text-sm">Calligraphie personnalisée</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="scrollCarousel(-1)" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-3 rounded-full shadow-lg">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button onclick="scrollCarousel(1)" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-3 rounded-full shadow-lg">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">Contact & Devis</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <form class="bg-white p-8 rounded-lg shadow-md">
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-medium mb-2">Nom complet</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-gray-900">
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-medium mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-gray-900">
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-medium mb-2">Votre message</label>
+                            <textarea rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-gray-900"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gray-900 hover:bg-black text-white py-3 rounded-lg font-semibold transition">
+                            Envoyer le message
+                        </button>
+                    </form>
+                </div>
+
+                <div>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4">Coordonnées du salon</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-gray-900 mr-3 w-5"></i> <span>25 Rue Sainte-Catherine, 33000 Bordeaux</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-gray-900 mr-3 w-5"></i> <span>05 56 00 00 00</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-gray-900 mr-3 w-5"></i> <span>contact@encrenoire-bordeaux.fr</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4">Avis Clients</h2>
+            <p class="text-xl text-center text-gray-600 mb-8">La satisfaction de mes clients est ma priorité.</p>
+
+            <div class="flex items-center justify-center mb-12">
+                <div class="text-yellow-500 text-3xl mr-2">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <span class="text-gray-800 text-2xl font-semibold">5.0</span>
+                <span class="text-gray-600 ml-2">sur Google</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center bg-blue-600 text-white text-xl font-bold mr-4">CL</div>
+                        <div>
+                            <p class="font-semibold text-gray-900">Claire L.</p>
+                            <div class="text-yellow-500 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"Un artiste incroyable, à l'écoute et d'une grande finesse. Mon tatouage est encore plus beau que ce que j'imaginais. Hygiène irréprochable."</p>
+                    <p class="text-gray-500 text-sm">Il y a 2 semaines</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center bg-green-600 text-white text-xl font-bold mr-4">JB</div>
+                        <div>
+                            <p class="font-semibold text-gray-900">Julien B.</p>
+                            <div class="text-yellow-500 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"Très professionnel et talentueux. Il a su transformer mon idée vague en une véritable œuvre d'art que je porte avec fierté. Je recommande les yeux fermés."</p>
+                    <p class="text-gray-500 text-sm">Il y a 1 mois</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center bg-purple-600 text-white text-xl font-bold mr-4">AM</div>
+                        <div>
+                            <p class="font-semibold text-gray-900">Alice M.</p>
+                            <div class="text-yellow-500 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"Premier tatouage pour moi et l'expérience a été parfaite. L'artiste a su me mettre en confiance, m'expliquer chaque étape. Le résultat est magnifique."</p>
+                    <p class="text-gray-500 text-sm">Il y a 3 semaines</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>© 2024 ENCRE NOIRE. Tous droits réservés. | Artiste Tatoueur à Bordeaux</p>
+        </div>
+    </footer>
+
+    <div id="cookieConsentBanner" class="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 flex flex-col md:flex-row items-center justify-between text-sm z-[1000] hidden">
+        <div class="mb-2 md:mb-0 md:mr-4 text-center md:text-left">
+            <p>Ce site utilise des cookies pour améliorer votre expérience. En continuant à naviguer, vous acceptez notre utilisation des cookies.</p>
+        </div>
+        <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
+            <button id="acceptCookies" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded transition">Accepter</button>
+            <button id="declineCookies" class="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded transition">Refuser</button>
+        </div>
+    </div>
+
+    <div id="quoteModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="sticky top-0 bg-white border-b p-6 flex justify-between items-center z-10">
+                    <h2 class="text-2xl font-bold">Prise de Rendez-vous</h2>
+                    <button onclick="closeQuoteModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+
+                <div class="p-6 border-b">
+                    <div class="flex items-center justify-center space-x-4">
+                        <div class="flex items-center">
+                            <div class="step-indicator active w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-semibold">1</div>
+                            <span class="ml-2 font-medium">Votre Projet</span>
+                        </div>
+                        <div class="w-16 h-0.5 bg-gray-300"></div>
+                        <div class="flex items-center">
+                            <div class="step-indicator w-10 h-10 rounded-full border-2 border-gray-300 text-gray-400 flex items-center justify-center font-semibold">2</div>
+                            <span class="ml-2 text-gray-400">Vos Coordonnées</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <div id="step1" class="step-content">
+                        <h3 class="text-lg font-semibold mb-6">Quel est votre projet ? *</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <label class="project-option relative cursor-pointer">
+                                <input type="checkbox" name="project_type" value="creation" class="hidden">
+                                <div class="border-2 border-gray-300 rounded-lg p-6 text-center hover:border-gray-900 transition">
+                                    <div class="text-gray-900 text-4xl mb-3"><i class="fas fa-pen-ruler"></i></div>
+                                    <span class="font-medium">Création sur mesure</span>
+                                </div>
+                            </label>
+
+                            <label class="project-option relative cursor-pointer">
+                                <input type="checkbox" name="project_type" value="flash" class="hidden">
+                                <div class="border-2 border-gray-300 rounded-lg p-6 text-center hover:border-gray-900 transition">
+                                    <div class="text-gray-900 text-4xl mb-3"><i class="fas fa-bolt"></i></div>
+                                    <span class="font-medium">Flash</span>
+                                </div>
+                            </label>
+
+                            <label class="project-option relative cursor-pointer">
+                                <input type="checkbox" name="project_type" value="recouvrement" class="hidden">
+                                <div class="border-2 border-gray-300 rounded-lg p-6 text-center hover:border-gray-900 transition">
+                                    <div class="text-gray-900 text-4xl mb-3"><i class="fas fa-recycle"></i></div>
+                                    <span class="font-medium">Recouvrement</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="mt-8 flex justify-end">
+                            <button onclick="nextStep()" class="bg-gray-900 hover:bg-black text-white px-6 py-3 rounded-lg font-semibold transition">Suivant</button>
+                        </div>
+                    </div>
+
+                    <div id="step2" class="step-content hidden">
+                        <h3 class="text-lg font-semibold mb-6">Vos informations</h3>
+
+                        <form class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Nom *</label>
+                                    <input type="text" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-gray-900">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Prénom *</label>
+                                    <input type="text" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-gray-900">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Email *</label>
+                                    <input type="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-gray-900">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Téléphone *</label>
+                                    <input type="tel" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-gray-900">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Description de votre projet</label>
+                                <textarea rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-gray-900" placeholder="Décrivez votre projet, vos inspirations, l'emplacement souhaité..."></textarea>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <button type="button" onclick="previousStep()" class="text-gray-600 hover:text-gray-800 font-medium">
+                                    <i class="fas fa-arrow-left mr-2"></i>Retour
+                                </button>
+                                <button type="submit" class="bg-gray-900 hover:bg-black text-white px-6 py-3 rounded-lg font-semibold transition">Envoyer ma demande</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
