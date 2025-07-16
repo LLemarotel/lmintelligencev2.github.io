@@ -22,26 +22,62 @@
       }
     }(window.location));
     
-    // Mobile video autoplay handler - only for mobile devices
+    // Mobile/Tablet video "Tap to Play" handler - for restrictive in-app browsers
     (function() {
-      // Check if mobile device
-      var isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-                    window.innerWidth < 768 || 
-                    ('ontouchstart' in window);
+      // Check if mobile or tablet device
+      var isMobileOrTablet = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                            window.innerWidth < 1024 || 
+                            ('ontouchstart' in window);
       
-      if (!isMobile) return; // Exit if not mobile
+      if (!isMobileOrTablet) return; // Exit if desktop
       
-      var hasUserInteracted = false;
-      var processedVideos = new Set(); // Track processed videos to avoid duplicates
+      var processedVideos = new Set();
       
-      function setupVideo(video) {
-        // Create unique identifier for this video
-        var videoId = video.src + '_' + video.offsetTop + '_' + video.offsetLeft;
+      // Create play button overlay
+      function createPlayButton(video) {
+        var playBtn = document.createElement('div');
+        playBtn.style.cssText = `
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 80px;
+          height: 80px;
+          background: rgba(0, 0, 0, 0.7);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          z-index: 10;
+          transition: all 0.3s ease;
+        `;
         
-        if (processedVideos.has(videoId)) {
-          return; // Already processed this video
-        }
+        var playIcon = document.createElement('div');
+        playIcon.style.cssText = `
+          width: 0;
+          height: 0;
+          border-left: 25px solid white;
+          border-top: 15px solid transparent;
+          border-bottom: 15px solid transparent;
+          margin-left: 5px;
+        `;
+        
+        playBtn.appendChild(playIcon);
+        return playBtn;
+      }
+      
+      function setupMobileVideo(video) {
+        var videoId = video.src + '_' + video.getBoundingClientRect().top;
+        
+        if (processedVideos.has(videoId)) return;
         processedVideos.add(videoId);
+        
+        // Ensure video container is relatively positioned
+        var container = video.parentElement;
+        if (container && getComputedStyle(container).position === 'static') {
+          container.style.position = 'relative';
+        }
         
         // Set up video properties
         video.muted = true;
@@ -51,68 +87,96 @@
         video.setAttribute('webkit-playsinline', 'true');
         video.setAttribute('loop', 'true');
         
-        // Add event listeners to ensure looping
+        // Try autoplay first
+        var autoplayPromise = video.play();
+        
+        if (autoplayPromise !== undefined) {
+          autoplayPromise.then(function() {
+            console.log('Mobile autoplay successful:', video.src.split('/').pop());
+          }).catch(function() {
+            // Autoplay failed - show play button
+            showPlayButton(video);
+          });
+        } else {
+          // No promise returned - likely autoplay blocked
+          showPlayButton(video);
+        }
+        
+        // Monitor if video stops unexpectedly
+        video.addEventListener('pause', function() {
+          if (!video.ended && video.currentTime > 0) {
+            setTimeout(function() {
+              if (video.paused) {
+                showPlayButton(video);
+              }
+            }, 1000);
+          }
+        });
+        
+        // Ensure looping
         video.addEventListener('ended', function() {
           video.currentTime = 0;
-          video.play().catch(function() {});
+          video.play().catch(function() {
+            showPlayButton(video);
+          });
         });
-        
-        // Add error handling
-        video.addEventListener('error', function() {
-          console.log('Video error for:', video.src.split('/').pop());
-        });
-        
-        return video;
       }
       
-      function safePlayVideos() {
+      function showPlayButton(video) {
+        // Don't add multiple play buttons
+        var existingBtn = video.parentElement.querySelector('.mobile-play-btn');
+        if (existingBtn) return;
+        
+        var playBtn = createPlayButton(video);
+        playBtn.className = 'mobile-play-btn';
+        
+        playBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          var playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.then(function() {
+              playBtn.style.display = 'none';
+              console.log('Mobile video started by tap:', video.src.split('/').pop());
+            }).catch(function(error) {
+              console.log('Video play failed even after tap:', error);
+            });
+          }
+        });
+        
+        video.parentElement.appendChild(playBtn);
+      }
+      
+      function processMobileVideos() {
         var videos = document.querySelectorAll('video');
-        var activeVideos = [];
+        var visibleVideos = [];
         
-        // Filter for truly visible and active videos
         videos.forEach(function(video) {
-          if (video && video.offsetParent !== null && video.src && 
+          if (video && video.offsetParent !== null && video.src &&
               video.getBoundingClientRect().width > 0) {
-            activeVideos.push(video);
+            visibleVideos.push(video);
           }
         });
         
-        console.log('Processing ' + activeVideos.length + ' active videos out of ' + videos.length + ' total');
+        console.log('Setting up ' + visibleVideos.length + ' mobile videos');
         
-        activeVideos.forEach(function(video, index) {
-          var processedVideo = setupVideo(video);
-          if (processedVideo && video.paused && !video.ended) {
-            var playPromise = video.play();
-            if (playPromise !== undefined) {
-              playPromise.then(function() {
-                console.log('Mobile video playing:', video.src.split('/').pop());
-              }).catch(function(error) {
-                console.log('Video autoplay prevented:', video.src.split('/').pop());
-              });
-            }
-          }
+        visibleVideos.forEach(function(video) {
+          setupMobileVideo(video);
         });
       }
       
-      function markInteraction() {
-        if (!hasUserInteracted) {
-          hasUserInteracted = true;
-          safePlayVideos();
-          
-          // Set up a periodic check to handle React re-renders
-          setInterval(function() {
-            safePlayVideos();
-          }, 3000);
-          
-          document.removeEventListener('touchstart', markInteraction);
-          document.removeEventListener('click', markInteraction);
-          document.removeEventListener('scroll', markInteraction);
-        }
+      // Initial setup when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          setTimeout(processMobileVideos, 500);
+        });
+      } else {
+        setTimeout(processMobileVideos, 500);
       }
       
-      document.addEventListener('touchstart', markInteraction, { passive: true });
-      document.addEventListener('click', markInteraction, { passive: true });
-      document.addEventListener('scroll', markInteraction, { passive: true });
+      // Re-process videos periodically to handle React re-renders
+      setInterval(processMobileVideos, 3000);
     })();
   </script>
   <script type="module" crossorigin src="/lmintelligencev2.github.io/assets/index-ByO3qDS2.js"></script>
