@@ -31,6 +31,42 @@
       
       if (!isMobileOrTablet) return; // Exit if desktop
       
+      // Detect restrictive in-app browsers
+      var userAgent = navigator.userAgent.toLowerCase();
+      var isInAppBrowser = 
+        // Snapchat
+        userAgent.includes('snapchat') ||
+        // Instagram
+        userAgent.includes('instagram') ||
+        // Facebook (includes Messenger)
+        userAgent.includes('fban') || userAgent.includes('fbav') ||
+        // TikTok
+        userAgent.includes('tiktok') || userAgent.includes('musical_ly') ||
+        // Twitter
+        userAgent.includes('twitter') ||
+        // LinkedIn
+        userAgent.includes('linkedinapp') ||
+        // Discord
+        userAgent.includes('discord') ||
+        // WhatsApp
+        userAgent.includes('whatsapp') ||
+        // Telegram
+        userAgent.includes('telegram') ||
+        // Line
+        userAgent.includes('line') ||
+        // WeChat
+        userAgent.includes('micromessenger') ||
+        // Pinterest
+        userAgent.includes('pinterest') ||
+        // Reddit
+        userAgent.includes('redditclient') ||
+        // YouTube app
+        userAgent.includes('youtubeapp') ||
+        // Generic WebView indicators
+        userAgent.includes('webview') || userAgent.includes('wv');
+      
+      console.log('Browser detection - In-app browser:', isInAppBrowser, 'User agent:', userAgent);
+      
       var processedVideos = new Set();
       
       // Create play button overlay
@@ -87,19 +123,25 @@
         video.setAttribute('webkit-playsinline', 'true');
         video.setAttribute('loop', 'true');
         
-        // Try autoplay first
-        var autoplayPromise = video.play();
-        
-        if (autoplayPromise !== undefined) {
-          autoplayPromise.then(function() {
-            console.log('Mobile autoplay successful:', video.src.split('/').pop());
-          }).catch(function() {
-            // Autoplay failed - show play button
-            showPlayButton(video);
-          });
-        } else {
-          // No promise returned - likely autoplay blocked
+        if (isInAppBrowser) {
+          // In restrictive in-app browsers, show play button immediately
+          console.log('In-app browser detected - showing play button for:', video.src.split('/').pop());
           showPlayButton(video);
+        } else {
+          // Regular mobile browsers (Safari, Chrome) - try autoplay first
+          var autoplayPromise = video.play();
+          
+          if (autoplayPromise !== undefined) {
+            autoplayPromise.then(function() {
+              console.log('Mobile autoplay successful:', video.src.split('/').pop());
+            }).catch(function() {
+              // Autoplay failed - show play button
+              showPlayButton(video);
+            });
+          } else {
+            // No promise returned - likely autoplay blocked
+            showPlayButton(video);
+          }
         }
         
         // Monitor if video stops unexpectedly
